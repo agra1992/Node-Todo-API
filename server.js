@@ -2,7 +2,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 var db = require('./db.js');
-var bcrypt = require('bcrypt');
 var middleware = require('./middleware.js')(db);
 
 var app = express();
@@ -116,6 +115,8 @@ app.put('/todos/:id', middleware.requireAuthentication, function(req, res) {
 		attributes.description = body.description;
 	}
 
+	console.log("User ID: ", req.user.get('id'));
+
 	db.todo.findOne({
 		where: {
 			id: todoId,
@@ -136,6 +137,7 @@ app.put('/todos/:id', middleware.requireAuthentication, function(req, res) {
 	});
 });
 
+//Create a user
 app.post('/users', function (req, res) {
 	var body = _.pick(req.body, 'email', 'password');
 
