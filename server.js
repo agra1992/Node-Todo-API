@@ -7,9 +7,20 @@ var middleware = require('./middleware.js')(db);
 var app = express();
 var PORT = process.env.PORT || 3000;
 var todos = [];
-var todoNextId = 1;
 
+app.get('/', (req, res) => {
+	res.send('Todo API root');
+});
 
+app.get('/about', (req, res) => {
+	res.send('abouts page');
+});
+
+app.listen(PORT, () => {
+	console.log('listening on PORT ', PORT);
+});
+
+/*
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
@@ -180,4 +191,4 @@ db.sequelize.sync({force: true}).then(function() {
 	app.listen(PORT, function() {
 		console.log('Express listening on port ' + PORT + '!');
 	});
-});
+});*/
